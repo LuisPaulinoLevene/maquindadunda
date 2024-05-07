@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px; /* Espaçamento acima do botão */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        #result p {
+            margin: 0;
+            color: #333;
+        }
+
+        .whatsapp-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px; /* Espaçamento acima do link */
+            text-decoration: none;
+            background-color: #25d366;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .whatsapp-link:hover {
+            background-color: #128c7e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Obtenha o teu codigo de desbloqueio de celulares para ler todas redes</h1>
+        <form id="calculationForm">
+            <label for="numero">Digite número de IMEI com até 15 dígitos:</label>
+            <input type="text" id="numero" name="numero" minlength="15" maxlength="15" required>
+            <button type="submit">OK</button>
+        </form>
+        <div id="result"></div>
+        <h3 style="font-weight: normal;">Esta aplicacao e valida apenas para celulares: Hisense, Tecno, Stylo, Itel, Movitel (M9108, M9910 e M9116)</h3>
+        <h3 style="font-weight: normal;">Esta é uma promocao valida ate 28 de Maio de 2024</h3>
+
+        <a href="https://chat.whatsapp.com/Hjr6RRJIZPCDrdFnZqY4Mg" class="whatsapp-link">Enviar mensagem pelo WhatsApp</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#calculationForm').submit(function (event) {
+                event.preventDefault();
+                var numero = $('#numero').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/calcular/',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ "numero": numero }),
+                    success: function (response) {
+                        $('#result').html('<p>Resultado: ' + response.resultado + '</p>');
+                    },
+                    error: function (xhr, status, error) {
+                        $('#result').html('<p>Erro: ' + xhr.responseJSON.error + '</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
